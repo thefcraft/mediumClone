@@ -1,0 +1,13 @@
+{% extends "baseWithNav.html" %}
+
+{% block baseHead %}
+<link rel="icon" type="image/x-icon" href="/static/img/icon.webp">
+<!-- add SEO -->
+{% endblock %}
+
+
+{% block baseWithNavBody %}
+<div class="root">
+    {{ data|safe }}
+</div>
+{% endblock %}

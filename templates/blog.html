@@ -1,0 +1,39 @@
+{% extends "baseWithNav.html" %}
+
+{% block baseHead %}
+<link rel="icon" type="image/x-icon" href="/static/img/icon.webp">
+<!-- add SEO -->
+{% endblock %}
+
+
+{% block baseWithNavBody %}
+<div class="root">
+    <div class="container">
+
+
+
+        <div class="heading">
+            {{ headingHTML|safe }}
+        </div>
+
+
+        
+
+        <div class="content">
+            {{ contentHTML|safe }}
+            
+         
+        </div>
+    </div>
+</div>
+
+<div class="root footer-bg">
+    <div class="container">
+        {{ rootFooterHTML|safe }}
+        
+        
+    </div>
+</div>
+
+
+{% endblock %}

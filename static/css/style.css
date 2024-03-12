@@ -1,0 +1,129 @@
+:root{
+    --bg-color: #fff;
+    --fg-color: #242424;
+}
+
+    @font-face {
+        font-family: 'source-serif-pro';
+        src: url('/static/fonts/source-serif-pro/SourceSerifPro-Regular.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'source-code-pro';
+        src: url('/static/fonts/source-code-pro/SourceCodePro-Regular.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+*{
+    margin: 0;
+    padding: 0;
+    font-size: 16px; 
+    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+    word-wrap: break-word;
+}
+
+html, body{
+    height: 100%;
+    /* overflow: hidden;  */
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+}   
+
+.container{
+    width: 680px;
+    margin: 0px 24px;
+    height: 100%;
+}
+
+.heading h1{
+    font-size: 42px;
+    margin: 50px 0px 32px 0px;
+}
+
+.heading h2{
+    font-size: 22px;
+    margin: -30px 0px 32px 0px;   
+    color: #6b6b6b;
+}
+
+.heading-userData-container{
+    display: flex;
+    gap: 12px;
+}
+.heading-userData-container img{
+    border-radius: 50%;
+}
+.heading-userData-container img:hover{
+    filter: contrast(160%); 
+}
+.heading-userData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 24px;
+    font-weight: 400;
+    width: 100%;
+    color: #6b6b6b;
+    
+}
+.follow{
+    color:#1A8917;
+    text-decoration: none;
+}
+#userName{
+    text-decoration: none;
+    color: var(--fg-color);
+}
+#userName:hover{
+    text-decoration: underline;
+}
+.blog-reaction-div{
+    margin-top: 32px;
+    padding: 3px 8px;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+.blog-reaction{
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    
+    color: #6b6b6b;
+}
+.blog-reaction div{
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.blog-reaction div:hover, .blog-reaction div:hover svg{
+    color: #000;
+}
+
+.blog-save-share{
+    display: flex;
+    gap: 26px;
+    padding: 8px 0px;
+}
+
+.f-italic{
+    font-style: italic;
+}
+
+
+
+@media only screen and (max-width: 750px) {
+    .container{
+        width: 100%;
+    }
+    /* *{
+        padding: 0px 2px;
+    } */
+    html, body{
+        padding: 0px 6px;
+    }   
+}

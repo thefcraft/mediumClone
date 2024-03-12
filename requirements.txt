@@ -1,0 +1,6 @@
+Flask
+Gunicorn
+markdown2
+flask_sqlalchemy
+sqlalchemy
+psycopg2

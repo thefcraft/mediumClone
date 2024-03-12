@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title or "Medium"}}</title>
+    
+    
+      <!-- style -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/nav.css">
+    <link rel="stylesheet" href="/static/css/contentStyle.css">
+
+    <!-- codeHighlighter -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs@9.16.2/styles/atom-one-dark.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs@9.16.2/styles/atom-one-light.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+      // hljs.initHighlightingOnLoad();
+      hljs.highlightAll()
+    </script>
+
+      <!-- CDN link to include MathJax: fro LaTeX  -->
+      <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    {% block baseHead %}
+    {% endblock %}
+
+</head>
+<body>
+    {% block baseBody %}
+    {% endblock %}
+    <script src="static/js/nav.js"></script>
+</body>
+</html>
