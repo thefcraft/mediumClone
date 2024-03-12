@@ -288,10 +288,8 @@ def sendAll():
 @app.route('/<int:id>')
 def blogPage(id):
     data = BLOG.query.get(id)
-    print(data)
-    print(data.user_id)
-    user = USER.query.get(data.user_id)
     if data:
+        user = USER.query.get(data.user_id)
         b = blog(user=user.userName,
             userPNG=user.userPNG,
             userFollowers=user.userFollowers,
@@ -321,7 +319,7 @@ def home():
 def resetDatabase():
     print("Database reset...")
     os.remove(os.path.join('database', os.listdir('database')[0]))
-if not os.path.exists(os.path.join(basedir, 'database\\database.db')):
+if not PRODUCTION_VERSION and not os.path.exists(os.path.join(basedir, 'database\\database.db')):
     print('creating database ...')
     with app.app_context():
         db.create_all()

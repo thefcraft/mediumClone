@@ -73,9 +73,9 @@ func main() {
 ## 9. PHP
 
 ```php
-&lt?php
+<?php
 echo "Hello, World!";
-?&gt
+?>
 ```
 
 ## 10. Rust
