@@ -17,10 +17,10 @@ class blog:
         ) -> None:
         
         self.title = title
-        self.user = user
-        self.userPNG = userPNG
-        self.userFollowers = userFollowers
-        self.userDescription = userDescription
+        self.user = user if user else 'anonymous'
+        self.userPNG = userPNG if userPNG else 'https://miro.medium.com/v2/resize:fill:48:48/1*dmbNkD5D-u45r44go_cf0g.png'
+        self.userFollowers = userFollowers if userFollowers else '--'
+        self.userDescription = (userDescription if userDescription else '') if user else 'The author of this blog post is an anonymous contributor who prefers to remain unidentified. They have chosen to share their insights and thoughts without creating an account or revealing their identity. Despite their anonymity, their writing provides valuable information and perspectives on various topics.'
         self.subtitle = subtitle
         self.post_date = post_date
         self.read_time = read_time
@@ -100,7 +100,7 @@ class blog:
             <div class="writer-img">
                 <img alt="{self.user}" src="{self.userPNG}" width="72" height="72" loading="lazy">
             </div>
-            <div style="display: flex;flex-wrap: wrap;">
+            <div style="display: flex;flex-wrap: wrap; flex-direction: column;">
                 <div style="padding-bottom: 1rem;">
                     <h2>Written by {self.user}</h2>
                     <div style="margin-bottom:8px;">

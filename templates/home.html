@@ -1,13 +1,268 @@
 {% extends "baseWithNav.html" %}
 
 {% block baseHead %}
-<link rel="icon" type="image/x-icon" href="/static/img/icon.webp">
+
+<link rel="stylesheet" href="/static/css/home.css">
+<style>
+    @media only screen and (max-width: 480px) {
+        .nav-left-container{
+            width: unset;
+        }
+    }
+</style>
 <!-- add SEO -->
 {% endblock %}
 
 
 {% block baseWithNavBody %}
 <div class="root">
-    {{ data|safe }}
+    <!-- {{ data|safe }} -->
+    <aside class="left">
+        <div class="container" id="postsContainer">
+            {% for post in posts %}
+            <div class="item-wrapper">
+                <div class="item">
+                    <aside style="width: 100%;">
+                        <div class="img">
+                            <img alt="{{ post.author }}" class="ah cs jm gu gv et" src="{{ post.author_img }}" width="20" height="20" loading="lazy">
+                            <a href="{{ post.author_url }}">{{ post.author }}</a>
+                            <span>•</span>
+                            <span>{{ post.date }}</span>
+                        </div>
+                        <a href="{{ post.url }}">
+                            <div class="title">
+                                <h2>{{ post.title }}</h2>
+                                <h3>{{ post.subtitle }}</h3>
+                            </div>
+                        </a>
+                    </aside>
+                    <aside>
+                        {% if post.img %}
+                            <div class="blog-img">
+                                <a href="{{ post.url }}">
+                                    <img alt="{{ post.title }}" src="{{ post.img }}" width="112" height="112" loading="lazy">
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="blog-img"></div>
+                        {% endif %}
+
+                    </aside>
+                </div>  
+                <div class="meta">
+                    <div>
+                        <a href="{{ post.tag_url }}">{{ post.tag }}</a>
+                        <span>{{ post.length }} read</span>
+                    </div>
+                    <div>
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" class="il mg" aria-label="Add to list bookmark button"><path d="M18 2.5a.5.5 0 0 1 1 0V5h2.5a.5.5 0 0 1 0 1H19v2.5a.5.5 0 1 1-1 0V6h-2.5a.5.5 0 0 1 0-1H18V2.5zM7 7a1 1 0 0 1 1-1h3.5a.5.5 0 0 0 0-1H8a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-8.5a.5.5 0 0 0-1 0v7.48l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4V7z" fill="currentColor"></path></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="mz na"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM8.25 12h7.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.39 12c0 .55.2 1.02.59 1.41.39.4.86.59 1.4.59.56 0 1.03-.2 1.42-.59.4-.39.59-.86.59-1.41 0-.55-.2-1.02-.6-1.41A1.93 1.93 0 0 0 6.4 10c-.55 0-1.02.2-1.41.59-.4.39-.6.86-.6 1.41zM10 12c0 .55.2 1.02.58 1.41.4.4.87.59 1.42.59.54 0 1.02-.2 1.4-.59.4-.39.6-.86.6-1.41 0-.55-.2-1.02-.6-1.41a1.93 1.93 0 0 0-1.4-.59c-.55 0-1.04.2-1.42.59-.4.39-.58.86-.58 1.41zm5.6 0c0 .55.2 1.02.57 1.41.4.4.88.59 1.43.59.57 0 1.04-.2 1.43-.59.39-.39.57-.86.57-1.41 0-.55-.2-1.02-.57-1.41A1.93 1.93 0 0 0 17.6 10c-.55 0-1.04.2-1.43.59-.38.39-.57.86-.57 1.41z" fill="currentColor"></path></svg>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </aside>
+    <aside class="right" id="root-right">
+        <div class="right-fixed">
+            <div class="top-blog">
+                <h2>Staff Picks</h2>
+                <div class="container">
+                    <div class="item">
+                        <div class="img">
+                            <img alt="Avi Loeb" class="s cm ch dm dn cn" src="https://miro.medium.com/v2/resize:fill:30:30/1*upiboNSChj1BIvycXiID7w.png" width="20" height="20" loading="lazy">
+                            <h4>Avi Loeb</h4>
+                        </div>
+                        <div class="title">
+                            <h2>
+                                Would Albert Einstein End Up in Academia in 2024?
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="img">
+                            <img alt="Avi Loeb" class="s cm ch dm dn cn" src="https://miro.medium.com/v2/resize:fill:30:30/1*upiboNSChj1BIvycXiID7w.png" width="20" height="20" loading="lazy">
+                            <h4>Avi Loeb</h4>
+                        </div>
+                        <div class="title">
+                            <h2>
+                                Would Albert Einstein End Up in Academia in 2024?
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="img">
+                            <img alt="Avi Loeb" class="s cm ch dm dn cn" src="https://miro.medium.com/v2/resize:fill:30:30/1*upiboNSChj1BIvycXiID7w.png" width="20" height="20" loading="lazy">
+                            <h4>Avi Loeb</h4>
+                        </div>
+                        <div class="title">
+                            <h2>
+                                Would Albert Einstein End Up in Academia in 2024?
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <a href="" class="more-btn">See the full list</a>
+            </div>
+            <div class="top-tags">
+                <h2>Recommended topics</h2>
+                <div class="tags">
+                    <a href="">Programming</a>
+                    <a href="">Data Science</a>
+                    <a href="">Technology</a>
+                    <a href="">Self Improvement</a>
+                    <a href="">Writing</a>
+                    <a href="">Relationships</a>
+                    <a href="">Machine Learning</a>
+                    <a href="">Productivity</a>
+                    <a href="">Politics</a>
+                </div>
+                <a href="" class="more-btn">See more topics</a>
+            </div>
+
+            <div class="top-user">
+                <h2>Who to follow</h2>
+                <div class="users">
+                    <div class="user">
+                        <img alt="BoredGeekSociety" class="s cm ch ci cj cn" src="https://miro.medium.com/v2/resize:fill:48:48/1*M_gr0KjmcnrNhPzUC8W-jw.png" width="32" height="32" loading="lazy">
+                        <title>
+
+                        </title>
+                    </div>
+                </div>
+                <a href="" class="more-btn">See more suggestions</a>
+            </div>
+
+            <div class="saved">
+                <h2>Recently saved</h2>
+                <a href="" class="more-btn">See all (1)</a>
+            </div>
+
+            <div class="side-footer">
+                <a href="">Help</a>
+                <a href="">Status</a>
+                <a href="">About</a>
+                <a href="">Careers</a>
+                <a href="">Blog</a>
+                <a href="">Privacy</a>
+                <a href="">Terms</a>
+                <a href="">Text to speech</a>
+                <a href="">Teams</a>
+            </div>
+        </div>
+       </aside>
 </div>
+
+<script>
+    // todo side-right scroll stop
+    const right = document.getElementById("root-right");
+    const rightFixed = document.getElementsByClassName("right-fixed")[0];
+    const nav = document.getElementsByTagName('nav')[0];
+    onresize = (e)=>{
+        if(rightFixed.scrollHeight>window.innerHeight){
+            if (rightFixed.scrollHeight > (document.documentElement.scrollTop+window.innerHeight-57-20)) { // right.scrollHeight-
+                rightFixed.style.top = (57-document.documentElement.scrollTop)+"px";
+            } else {
+                rightFixed.style.top = (window.innerHeight-rightFixed.scrollHeight-20)+"px";
+            }
+        }else{
+            rightFixed.style.top = Math.max(57-document.documentElement.scrollTop, 0)+"px";
+        }
+    }
+
+    let loading = 0;
+    const postsContainer = document.getElementById("postsContainer");
+    function getPosts(){
+        let data = {
+            userid: {{ userid }}
+        };
+        fetch("/api/posts", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify(data)
+        }).then(res=>res.json()).then(res => {
+            loading = 0;
+            if(res['posts']){
+                res['posts'].forEach(post => {
+                    let innerHTML = `<div class="item-wrapper">
+                <div class="item">
+                    <aside style="width: 100%;">
+                        <div class="img">
+                            <img alt="${post.author}" class="ah cs jm gu gv et" src="${post.author_img}" width="20" height="20" loading="lazy">
+                            <a href="${post.author_url}">${post.author}</a>
+                            <span>•</span>
+                            <span>${post.date}</span>
+                        </div>
+                        <a href="${post.url}">
+                            <div class="title">
+                                <h2>${post.title}</h2>
+                                <h3>${post.subtitle}</h3>
+                            </div>
+                        </a>
+                    </aside>
+                    <aside>
+                        <div class="blog-img">`;
+                    if (post.img) {
+                        innerHTML+=`<a href="${post.url}">
+                                <img alt="${post.title}" src="${post.img}" width="112" height="112" loading="lazy">
+                            </a>`;
+                    }
+                    innerHTML+=`</div>
+                    </aside>
+                </div>  
+                <div class="meta">
+                    <div>
+                        <a href="${post.tag_url}">${post.tag}</a>
+                        <span>${post.length} read</span>
+                    </div>
+                    <div>
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" class="il mg" aria-label="Add to list bookmark button"><path d="M18 2.5a.5.5 0 0 1 1 0V5h2.5a.5.5 0 0 1 0 1H19v2.5a.5.5 0 1 1-1 0V6h-2.5a.5.5 0 0 1 0-1H18V2.5zM7 7a1 1 0 0 1 1-1h3.5a.5.5 0 0 0 0-1H8a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-8.5a.5.5 0 0 0-1 0v7.48l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4V7z" fill="currentColor"></path></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="mz na"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM8.25 12h7.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.39 12c0 .55.2 1.02.59 1.41.39.4.86.59 1.4.59.56 0 1.03-.2 1.42-.59.4-.39.59-.86.59-1.41 0-.55-.2-1.02-.6-1.41A1.93 1.93 0 0 0 6.4 10c-.55 0-1.02.2-1.41.59-.4.39-.6.86-.6 1.41zM10 12c0 .55.2 1.02.58 1.41.4.4.87.59 1.42.59.54 0 1.02-.2 1.4-.59.4-.39.6-.86.6-1.41 0-.55-.2-1.02-.6-1.41a1.93 1.93 0 0 0-1.4-.59c-.55 0-1.04.2-1.42.59-.4.39-.58.86-.58 1.41zm5.6 0c0 .55.2 1.02.57 1.41.4.4.88.59 1.43.59.57 0 1.04-.2 1.43-.59.39-.39.57-.86.57-1.41 0-.55-.2-1.02-.57-1.41A1.93 1.93 0 0 0 17.6 10c-.55 0-1.04.2-1.43.59-.38.39-.57.86-.57 1.41z" fill="currentColor"></path></svg>
+                    </div>
+                </div>
+            </div>`;
+                postsContainer.innerHTML+=innerHTML;
+                });
+            }else{
+                console.log('Error !!!');
+            }
+        });
+    }
+    
+    let lastPosition = document.documentElement.scrollTop;
+    let stopGoingUp = document.documentElement.scrollTop;
+    onscroll = (e)=>{
+        if((loading==0)&&(document.body.scrollHeight-window.innerHeight-document.documentElement.scrollTop<window.innerHeight)){
+            loading = 1;
+            getPosts();
+            console.log("Loading");
+        }
+        // nav handling
+        if (lastPosition>document.documentElement.scrollTop){
+            nav.style.top = (Math.min(lastPosition-document.documentElement.scrollTop, 57)-57)+"px";
+
+            if(stopGoingUp<document.documentElement.scrollTop){
+                lastPosition = document.documentElement.scrollTop;    
+            }
+            stopGoingUp = document.documentElement.scrollTop;
+        }else{
+            lastPosition = document.documentElement.scrollTop;
+            nav.style.top = (-Math.min(document.documentElement.scrollTop, 57))+"px";
+        }
+        
+        // sideBar handling
+        if(rightFixed.scrollHeight>window.innerHeight){
+            if (rightFixed.scrollHeight > (document.documentElement.scrollTop+window.innerHeight-57-20)) { // right.scrollHeight-
+                rightFixed.style.top = (57-document.documentElement.scrollTop)+"px";
+            } else {
+                // console.log(rightFixed.style.top, window.innerHeight-rightFixed.scrollHeight-20);
+                rightFixed.style.top = (window.innerHeight-rightFixed.scrollHeight-20)+"px";
+            }
+        }else{
+            rightFixed.style.top = Math.max(57-document.documentElement.scrollTop, 0)+"px";
+        }
+    }
+</script>
 {% endblock %}

@@ -1,0 +1,102 @@
+nav{
+    height: 75px;
+    border-bottom: 1px solid #242424;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0!important;
+    padding: 0!important;
+}
+nav .nav-left-container{
+    padding: 1.6rem;
+}
+nav .nav-right-container{
+    color: #242424;
+    padding-right: 1.6rem;
+}   
+/* .email-inp{
+    display: none!important;
+} */
+
+.root{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.root .title {
+    margin-bottom: 30px;
+}
+.root .title h2{
+    font-size: 28px;
+}
+.root .small{
+    max-width: 500px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 50px;
+    font-size: 20px;
+}
+.root .input-container h4{
+    font-size: 13px;
+    color: #242424;
+    font-weight: 300;
+    margin-bottom: 12px;
+}
+.root .input-container input[type="email"], .root .input-container input[type="text"], .root .input-container input[type="email"]{
+    all: unset;
+}
+.root .input-container .input{
+    border-bottom: 1px solid #242424;
+    width: 270px;
+}
+.root .input-container button{
+    all: unset; 
+    margin-top: 40px;
+    border-radius: 99em;
+    background-color: #191919;
+    color: #FFFFFF;
+    padding: 8px 16px;
+    width: 200px;
+    cursor: pointer;
+}
+.root .input-container button:hover{
+    background-color: #262626;
+}
+.root .input-container button:active{
+    background-color: #2f4d2f;
+}
+.otp-inp .input-container button{
+    width: 50px;
+}    
+.otp-inp .input-container .input input{
+    font-size: 22px
+}
+
+@media only screen and (max-width: 750px){
+    nav .nav-right-container .dnon{
+        display: none;
+    }
+    .nav-right-container {
+        gap: 1.6rem; 
+    }
+    nav .nav-left-container{
+        padding: 1.6rem 1rem;
+    }
+    .root .small{
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width: 400px){
+    nav .nav-left-container{
+        padding: 1.6rem .5rem;
+        max-width: 125px;
+    }
+    .root .small{
+        display: none;
+    }
+}

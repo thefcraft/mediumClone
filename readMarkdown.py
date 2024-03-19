@@ -3,7 +3,7 @@ import re
 import html
 
 def extract_markdown(data):
-    data = html.escape(data)
+    data = data#html.escape(data)
     # Define the pattern to search for
     pattern = r"```(\w*)\n([\s\S]*?)\n```"
 
@@ -12,8 +12,12 @@ def extract_markdown(data):
 
     # Perform the replacement
     modified_content = re.sub(pattern, replacement, data)
-
-    return markdown2.markdown(modified_content)
+    
+    pattern = r"!\[(.*?)\][ ]*\((.*?)\)"
+    replacement = r'![\1](\2) <figcaption>\1</figcaption>'
+    modified_content = re.sub(pattern, replacement, modified_content)
+    
+    return markdown2.markdown(modified_content).replace('<hr />', '<div class="separator"><span>• • •</span></div>')
 
 if __name__ == '__main__':
     with open('part1.md', 'r', encoding='utf-8') as file:

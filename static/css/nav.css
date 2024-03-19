@@ -6,6 +6,15 @@ nav{
     display: flex;
     justify-content: space-between;
     user-select: none;
+
+    position: fixed;
+    top: 0;
+    width: -webkit-fill-available;    
+
+    z-index: 100;
+}
+.root{
+    padding-top: 57px;
 }
 
 .nav-left-container{
@@ -51,7 +60,11 @@ nav{
     width: 32px;
     height: 32px;
 }
-.nav-right-container div:hover{
+.nav-right-container a{
+    all: unset;
+    cursor: pointer;
+}
+.nav-right-container a:hover{
     color: var(--fg-color);
 }
 
@@ -65,9 +78,9 @@ nav{
 }
 
 @media only screen and (max-width: 480px) {
-    .nav-left-container{
+    /* .nav-left-container{ giving error on many files
         width: 100%;
-    }
+    } */
      
     .nav-left-container .search-field{
         background-color: unset;

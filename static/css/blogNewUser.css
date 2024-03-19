@@ -1,0 +1,70 @@
+nav{
+    height: 57px;
+    border-bottom: 1px solid #e2e2e2;
+    background-color: #ffc017;
+
+    z-index: 99;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0!important;
+    padding: 0!important;
+    
+    transition: all ease 300ms;
+}
+.nav-transparent{
+    background-color: #ffffff;
+    transition: all ease 300ms;
+}
+.nav-transparent .btn{
+    background-color: #1A8917!important;
+}
+.nav-transparent .btn:hover{
+    background-color: #156d12!important;
+}
+nav .nav-left-container{
+    padding: 16px;
+}
+nav .nav-right-container{
+    color: #242424;
+}
+nav .nav-right-container a:hover{
+    color: #6B6B6B;
+}
+nav .nav-right-container .btn{
+    cursor: pointer;
+    background-color: #242424;
+    border-radius: 99em;
+    color: #FFFFFF;
+    padding: 8px 16px;
+}
+nav .nav-right-container .btn:hover{
+    background-color: rgba(25, 25, 25, 1);
+}
+nav .nav-right-container .btn a{
+    all: unset;
+    cursor: pointer;
+}
+@media only screen and (max-width: 750px){
+    nav .nav-right-container .dnon{
+        display: none;
+    }
+}
+@media only screen and (max-width: 500px){
+    nav .nav-left-container {
+        padding-left: 6px;
+        padding-right: 6px;
+        /* width: unset; */
+        width: 40%;
+    }
+}
+@media only screen and (max-width: 400px){
+    nav .nav-right-container .btn{
+        padding: 8px 8px;
+    }
+    .nav-right-container {
+        padding-left: 0;
+    }
+}

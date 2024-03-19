@@ -4,3 +4,6 @@ blogs/*
 screenshot/*
 .env
 genBlog.ipynb
+init_db.py
+head-tags/*
+blogs/*

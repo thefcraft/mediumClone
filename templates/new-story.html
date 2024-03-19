@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% block baseHead %}
+<link rel="icon" type="image/x-icon" href="/static/img/icon.webp">
+
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"> -->
+<!-- <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script> -->
+<script src="https://unpkg.com/tiny-markdown-editor/dist/tiny-mde.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/tiny-markdown-editor/dist/tiny-mde.min.css"/>
+
+<link rel="stylesheet" href="/static/css/new-story.css">
+<!-- <script>
+    var simplemde = new SimpleMDE();
+</script> -->
+<!-- add SEO -->
+{% endblock %}
+
+
+{% block baseBody %}
+<nav>
+    <div class="nav-left-container">
+        <a href="/"><img src="/static/img/logo.png"></a>
+        <span style="margin: auto;" id="draft-nav">
+            {% if is_authenticated %}
+                Draft in {{ username }}
+            {% else %}
+                Draft in Anonymous
+            {% endif %}    
+        </span>
+    </div>
+    <div class="nav-right-container">
+
+        <button onclick="finalPreview(this)" class="publish-btn btn-col2" style="background-color: rgba(59, 135, 201, .25); cursor: unset;" id="navbtn1">Final Preview</button>
+        <button onclick="publish()" class="publish-btn" style="background-color: rgba(26, 137, 23, .25); cursor: unset;" id="navbtn2">Publish</button>
+            {% if is_authenticated %}
+                <a class="user-img" href="/profile">
+                    <img alt="{{ username }}" class="l eq bx by bz cw" src="{{ userimg if userimg else 'https://miro.medium.com/v2/resize:fill:48:48/1*dmbNkD5D-u45r44go_cf0g.png'}}" width="32" height="32" loading="lazy">    
+                </a>
+            {% else %}
+                <a class="user-img" href="/signup">
+                    <img alt="user" class="l eq bx by bz cw" src="https://miro.medium.com/v2/resize:fill:48:48/1*dmbNkD5D-u45r44go_cf0g.png" width="32" height="32" loading="lazy">
+                </a>
+            {% endif %}           
+    </div>
+</nav>
+
+<div class="root">
+    <div class="container">
+        <div id="sumbit">
+            <div class="closebtn" onclick="publishClose()">
+                <svg width="29" height="29"><path d="M20.13 8.11l-5.61 5.61-5.609-5.61-.801.801 5.61 5.61-5.61 5.61.801.8 5.61-5.609 5.61 5.61.8-.801-5.609-5.61 5.61-5.61" fill-rule="evenodd"></path></svg>
+            </div>
+            <div>
+                <h2>Story Preview</h2>
+                <div class="img-preview" id="blog_image">
+                    <span style="padding-left: 1rem; padding-right: 1rem;">Include a high-quality image in your story to make it more inviting to readers.</span>
+                </div>
+                <textarea name="" id="blogtitle" cols="30" rows="1" placeholder="Write a preview title" oninput="auto_grow(this)"></textarea>
+                <hr>
+                <textarea name="" id="blogsubtitle" cols="30" rows="1" placeholder="Write a preview subtitle…" oninput="auto_grow(this)"></textarea>
+                <hr>
+                <p style="font-size: small;">
+                    Note: Changes here will affect how your story appears in public places like Medium’s homepage and in subscribers’ inboxes — not the contents of the story itself.
+                </p>
+            </div>
+            <div>
+                <span>Publishing to: <b style="padding-left: 0.25rem;">{{username if  is_authenticated else 'user'}}</b></span>
+                <p>Add or change topics (up to 5) so readers know what your story is about</p>
+                <div class="tags_area">
+                    <textarea name="" id="blogtags" cols="30" rows="1" placeholder="Add a topic separated by a comma ..." oninput="auto_grow(this)"></textarea>
+                    <!-- <input type="text" placeholder="Add a topic…"> -->
+                </div>
+                <div style="margin-top: 1rem; width: 100%;">
+                    <button class="publish-btn" onclick="publishDone()" id="publishDoneBtn" style="background-color: rgba(26, 137, 23, .25); cursor: unset;">Publish Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="content" id="content" style="margin-top: 1rem; margin-bottom: 1rem;"></div>
+        <div id="writer-div">
+            <!-- <textarea id="writer"></textarea> -->
+            <div id="writer-toolbar"></div>
+            <div id="writer"></div>
+            <div id="writer-footer" style="display:flex">
+                <div id="writer-footer-wc" style="box-sizing:border-box; width:50%; padding:4px 0px; text-align:left">0 characters, 0 words</div>
+                <div id="writer-footer-pos" style="box-sizing:border-box; width:50%; padding:4px 0px; text-align:right">– : –</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-bg">
+    <div class="container">
+        <!-- {{ rootFooterHTML|safe }} -->
+    </div>
+</div>
+<script>
+    // "bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list",
+    // ['bold', 'italic', 'strikethrough', '|', 'code', '|', 'h1', 'h2', '|', 'ul', 'ol', '|', 'blockquote', 'hr', '|', 'insertLink', 'insertImage']
+    myButtons = [
+    'bold',
+    'italic',
+    'strikethrough',
+    '|',
+    {
+      name: 'codeBlock', 
+      action: editor => {editor.wrapSelection('\n```', '```');},
+      innerHTML: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 3h-16c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-14c0-1.103-.897-2-2-2zm-16 16v-12h16l.002 12z"/><path d="m9.293 9.293-3.707 3.707 3.707 3.707 1.414-1.414-2.293-2.293 2.293-2.293zm5.414 0-1.414 1.414 2.293 2.293-2.293 2.293 1.414 1.414 3.707-3.707z"/></svg>',
+    },
+    'code', '|', 'h1', 'h2', '|', 'ul', 'ol', '|', 'blockquote', 'hr', '|', 'insertLink', 'insertImage',
+    // {
+    //   name: 'insertLink', 
+    //   action: editor => {
+    //     let dest = window.prompt('Link destination'); 
+    //     if (dest) editor.wrapSelection('[', `](<${dest}>)`);
+    //   }
+    // }
+  ]
+    const navbtn2 = document.getElementById("navbtn2");
+    const navbtn1 = document.getElementById("navbtn1");
+    onkeyup = ()=>{
+        if(tinyMDE.getContent()==''){
+            navbtn1.style.backgroundColor = 'rgba(59, 135, 201, .25)';
+            navbtn1.style.cursor = 'unset';
+            navbtn2.style.backgroundColor = 'rgba(26, 137, 23, .25)';
+            navbtn2.style.cursor = 'unset';
+        }else{
+            navbtn1.style.backgroundColor = 'revert-layer';
+            navbtn1.style.cursor = 'revert-layer';
+            navbtn2.style.backgroundColor = 'revert-layer';
+            navbtn2.style.cursor = 'revert-layer';
+        }
+    }
+    
+    // function navHandler(){
+    //     console.log("header");
+    // }
+
+    const render = document.getElementById("content"); 
+    const writer = document.getElementById("writer");
+    const writer_div = document.getElementById("writer-div");
+    const sumbit = document.getElementById("sumbit");
+    const nav = document.getElementsByTagName("nav")[0];
+
+    // var simplemde = new SimpleMDE({
+    //     element: writer,
+    //     // toolbar: myButtons,
+    // });
+    var tinyMDE = new TinyMDE.Editor({ element: writer, content:'# Blog\nWrite Your Blog Here...'});
+    var commandBar = new TinyMDE.CommandBar({
+        element: "writer-toolbar",
+        editor: tinyMDE,
+        commands: myButtons
+    });
+    tinyMDE.addEventListener('selection', e => { 
+        let st = `${e.focus ? e.focus.row : '–'} : ${e.focus ? e.focus.col : '–'}`;
+        for (let command in e.commandState) {
+            if (e.commandState[command]) st = command.concat(' ', st);
+        }
+        document.getElementById('writer-footer-pos').innerHTML = st; 
+    });
+    tinyMDE.addEventListener('change', e => { 
+        document.getElementById('writer-footer-wc').innerHTML = `${e.content.length} characters, ${e.content.split(/\s+/).length} words`; 
+    });
+    // [{
+            // name: "bold",
+            // action: finalPreview,
+            // className: "fa fa-bold",
+            // title: "Bold (Ctrl+X)",
+        // },
+        // "|", // Separator
+    // ],
+    // let previewBeforeData='';
+    // function preview(){
+    //     let show = document.getElementsByClassName("CodeMirror-code")[0];
+    //     if (previewBeforeData==''){
+    //         previewBeforeData = show.innerHTML;
+    //         const requestOptions = {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 md: tinyMDE.getContent(),
+    //             }),
+    //         };
+    //         fetch('/api/md2html', requestOptions).then(res=>res.json()).then((res)=>{
+    //             show.innerHTML=res['html'];
+    //             hljs.highlightAll();
+    //         })
+    //     }else{
+    //         show.innerHTML = previewBeforeData;
+    //         previewBeforeData ='';
+    //     }
+    // }
+
+    function finalPreview(elem){
+        if(tinyMDE.getContent()!=''){
+            if(elem.innerHTML == "Final Preview"){
+                elem.innerHTML = "Edit";
+                elem.style.paddingLeft = '1rem';
+                elem.style.paddingRight = '1rem';
+            }
+            else{
+                elem.innerHTML = "Final Preview";
+                elem.style.paddingLeft = '10px';
+                elem.style.paddingRight = '10px';
+            }
+
+            if(render.innerHTML == ""){
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        md: tinyMDE.getContent(),
+                    }),
+                };
+                fetch('/api/md2html', requestOptions).then(res=>res.json()).then((res)=>{
+                    render.innerHTML+=res['html'];
+                    writer_div.style.display = 'none';
+                    hljs.highlightAll();
+                })
+            }else{
+                render.innerHTML="";
+                writer_div.style.display = 'block';
+            }
+        }
+    }
+    function publish(){
+        if(tinyMDE.getContent()!=''){
+            const pattern = /!\[.*?\][ ]*\((.*?)\)/;
+            const match = tinyMDE.getContent().match(pattern);
+            const firstImageUrl = match ? match[1] : null;
+            const blogImage = document.getElementById('blog_image');
+            if(firstImageUrl == null){
+                blogImage.innerHTML = '<span style="padding-left: 1rem; padding-right: 1rem;">Include a high-quality image in your story to make it more inviting to readers.</span>';
+            }else{
+                blogImage.innerHTML = '<img src="'+firstImageUrl+'" alt="" srcset="" style="object-fit: cover; width: 100%; height: 100%;">';
+                blogImage.style.paddingRight = 0;
+                blogImage.style.paddingLeft = 0;
+            }
+
+
+            render.innerHTML="";
+            writer_div.style.display = 'none';
+            sumbit.style.display = 'flex';
+            nav.style.display = 'none';
+            console.log("Publishing");
+        }
+    }
+    
+    const tags = document.getElementById("blogtags");
+    const title = document.getElementById("blogtitle");
+    const publishDoneBtn = document.getElementById("publishDoneBtn");
+    title.oninput = ()=>{
+        if(title.value==''){
+            publishDoneBtn.style.backgroundColor = 'rgba(26, 137, 23, .25)';
+            publishDoneBtn.style.cursor = 'unset';
+        }else{
+            publishDoneBtn.style.backgroundColor = 'revert-layer';
+            publishDoneBtn.style.cursor = 'revert-layer';
+        }
+    }
+    const subtitle = document.getElementById("blogsubtitle");
+    function publishDone(){
+        if(title.value!=''){
+            console.log(tinyMDE.getContent());
+            console.log(tags.value, title.value, subtitle.value);
+                let data = {
+                    tags: tags.value,
+                    title: title.value,
+                    subtitle: subtitle.value,
+                    data: tinyMDE.getContent(),
+                    userid: {{ 'null' if not userid else userid }}
+                };
+                fetch("/new-story", {
+                    method: "POST",
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify(data)
+                }).then(res=>res.json()).then(res => {
+                    if(res['OK']){
+                        window.location.replace('/'); 
+                        console.log("DONE !") 
+                    }else{
+                        console.log('Error !!!');
+                    }
+                });
+        }
+    }
+    function publishClose(){
+        render.innerHTML="";
+        writer_div.style.display = 'block';
+        sumbit.style.display = 'none';
+        nav.style.display = 'flex';
+    }
+
+    function auto_grow(element) {
+        if(element.value == ''){
+            element.style.height = 'unset';
+        }else{
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight) + "px";
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    }
+</script>
+{% endblock %}

@@ -3,10 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title or "Medium"}}</title>
+    <meta name="theme-color" content="#FFFFFF">
+    <title>{{title or "Medium | Home"}}</title>
+    <meta name="description" content="Explore a diverse range of articles, stories, and insights on various topics. Your go-to platform for thought-provoking content, curated by passionate writers from around the world.">
+    <meta name="keywords" content="medium clone, blogging platform, articles, stories, insights, writers, community, diverse, thought-provoking, platform">
+    <meta name="author" content="ThefCraft">
+      
+    <!-- Twitter meta tags -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:site" content="@ThefCraft">
+    <!-- Add other Twitter meta tags as needed -->
+      
+    <!-- Open Graph meta tags -->
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Medium | Home">
+    <meta property="og:description" content="Explore a diverse range of articles, stories, and insights on various topics. Your go-to platform for thought-provoking content, curated by passionate writers from around the world.">
+    <meta property="og:url" content="/">
+    <meta property="og:image" content="/static/img/logo.png">
+    <!-- Add other Open Graph meta tags as needed -->
+      
+ 
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/static/img/icon.webp">
     
-    
-      <!-- style -->
+    <!-- CSS and JavaScript links -->
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/nav.css">
     <link rel="stylesheet" href="/static/css/contentStyle.css">
@@ -30,6 +51,6 @@
 <body>
     {% block baseBody %}
     {% endblock %}
-    <script src="static/js/nav.js"></script>
+    
 </body>
 </html>
