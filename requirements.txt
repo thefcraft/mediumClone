@@ -1,6 +1,8 @@
 Flask
+flask_login
 Gunicorn
 markdown2
 flask_sqlalchemy
+flask_pgsql==0.0.9
 sqlalchemy
 psycopg2

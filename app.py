@@ -12,10 +12,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "abc"
 
-DEBUG = True
+DEBUG = False
 RESET = False
-PRODUCTION_VERSION = False
-TESTING = True
+PRODUCTION_VERSION = True
+TESTING = False
 if PRODUCTION_VERSION:
     from flask_postgresql import PostgreSQL
     # from flask_postgresql_test import PostgreSQL
@@ -58,7 +58,7 @@ class USERS(UserMixin, db.Model):
     email = db.Column(db.String(250), unique=True, nullable=False)
     password = db.Column(db.String(250), nullable=False)
     userDescription = db.Column(db.String(300), unique=False, nullable=True)
-    userPNG = db.Column(db.String(50), unique=False, nullable=True)
+    userPNG = db.Column(db.String(100), unique=False, nullable=True)
     userFollowers = db.Column(db.Integer, unique=False, nullable=True)
     # userFollowers_id = 
     # repr method represents how one object of this datatable will look like
@@ -180,9 +180,13 @@ def md2html():
 
 # utility functions
 def Trending():
-    allBlogs = BLOGS.query.all()
-    random.shuffle(allBlogs)
-    allBlogs = allBlogs[:6]
+    if not PRODUCTION_VERSION:
+        allBlogs = BLOGS.query.all()
+        random.shuffle(allBlogs)
+        allBlogs = allBlogs[:6]
+        theirUsers = [USERS.query.get(i.user_id) for i in allBlogs]
+    else:
+        allBlogs = BLOGS.query.random(length=6)
     theirUsers = [USERS.query.get(i.user_id) for i in allBlogs]
     
     posts = [{'url': f'/posts/{b.id}',
@@ -213,10 +217,14 @@ def get_posts(chunk_size=16, userid=None):
     user = None => random blogs or tranding blog
     user = userid => get best blog using ai
     """
-    allBlogs = BLOGS.query.all()
-    random.shuffle(allBlogs)
-    allBlogs = allBlogs[:chunk_size]
+    if not PRODUCTION_VERSION:
+        allBlogs = BLOGS.query.all()
+        random.shuffle(allBlogs)
+        allBlogs = allBlogs[:chunk_size]
+    else:
+        allBlogs = BLOGS.query.random(length=chunk_size)
     theirUsers = [USERS.query.get(i.user_id) for i in allBlogs]
+    
     if userid is None:
         posts = [{'url': f'/posts/{b.id}',
                   'title': b.title,
@@ -246,7 +254,7 @@ def more_posts():
     data = request.get_json()
     userid = data.get('userid')
     return jsonify({
-        'posts' : get_posts(userid=userid, chunk_size=8)
+        'posts' : get_posts(userid=userid, chunk_size=16)
     })
 
 

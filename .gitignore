@@ -4,6 +4,7 @@ blogs/*
 screenshot/*
 .env
 genBlog.ipynb
+renderDatabase.ipynb
 init_db.py
 head-tags/*
 blogs/*
