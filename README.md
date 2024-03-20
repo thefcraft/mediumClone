@@ -2,6 +2,8 @@
 
 A Medium clone website built using Flask, PostgreSQL, [flask_pgsql](https://github.com/thefcraft/flask_postgresql), and Flask-Login.
 
+[Live Demo](https://mediumclone-uzmf.onrender.com/)
+
 ## TODO
 At this time for login username and email are same and code(otp) is just password for login
 
