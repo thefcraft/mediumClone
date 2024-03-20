@@ -3,6 +3,6 @@ flask_login
 Gunicorn
 markdown2
 flask_sqlalchemy
-flask_pgsql==0.0.9
+flask_pgsql==0.0.10
 sqlalchemy
 psycopg2
